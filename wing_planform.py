@@ -5,21 +5,21 @@ import math
 # Adjust font size
 plt.rcParams.update({'font.size': 22})
 
-# -------------------------------------------- Parameters --------------------------------------------
+# --------------------------------------------- Parameters ---------------------------------------------
 
 # Parameters
-AR = 9                                          # -
-S = 66.6                                        # m^2
-c4_sweep = 26.3                                 # deg
+AR = 9                                          # [-]
+S = 66.6                                        # [m^2]
+c4_sweep = 26.3                                 # [deg]
 
 # Convert parameters \ calculate if necessary
-span = math.sqrt(AR*S)                          # meter
-taper_ratio = 0.2*(2-c4_sweep*(math.pi/180))    # - 
-c_r = (2*S)/((1+taper_ratio)*span)              # meter
-c_t = taper_ratio*c_r                           # meter
-c4_sweep /= (180/math.pi)                       # rad
+span = math.sqrt(AR*S)                          # [m]
+taper_ratio = 0.2*(2-c4_sweep*(math.pi/180))    # [-] 
+c_r = (2*S)/((1+taper_ratio)*span)              # [m]
+c_t = taper_ratio*c_r                           # [m]
+c4_sweep /= (180/math.pi)                       # [rad]
 
-# ------------------------------------------- Calculations -------------------------------------------
+# -------------------------------------------- Calculations --------------------------------------------
 
 # Calculation MAC: chord and location
 # Integrate from root to tip 
@@ -52,6 +52,9 @@ q_c_mac = q_c_r - (spanwise_pos) * math.tan(c4_sweep)
 le_mac = q_c_mac + 0.25 * mac
 te_mac = q_c_mac - 0.75 * mac
 
+# Calculating XLEMAC
+XLEMAC = mac * math.tan(c4_sweep) + (1/4)*c_r - (1/4)*mac
+
 # Calculate leading and trailing edge sweep angle
 slope_le = (le_c_r - le_c_t) / (span/2)
 le_sweep = math.atan(slope_le)
@@ -59,7 +62,7 @@ le_sweep = math.atan(slope_le)
 slope_te = (te_c_r - te_c_t) / (span/2)
 te_sweep = math.atan(slope_te)
 
-# ----------------------------------------- Printing results -----------------------------------------
+# ------------------------------------------ Printing results ------------------------------------------
 
 print("-------------------- Summary ----------------------")
 print("Span:                        ", round(span,2), "[m]")
@@ -68,11 +71,12 @@ print("Root chord:                  ", round(c_r,2), "[m]")
 print("Tip chord:                   ", round(c_t,2), "[m]")
 print("MAC:                         ", round(mac,2), "[m]")
 print("Spanwise position MAC:       ", round(spanwise_pos,2), "[m]")
+print("XLEMAC:                      ", round(XLEMAC,2), "[m]")
 print("Leading edge sweep angle:    ", round(le_sweep*(180/math.pi),2), "[deg]")
 print("Trailing edge sweep angle:   ", round(te_sweep*(180/math.pi),2), "[deg]")
 print("---------------------------------------------------")
 
-# --------------------------------------------- Plotting ---------------------------------------------
+# ---------------------------------------------- Plotting ----------------------------------------------
 
 # Make plot
 plt.figure()
