@@ -5,6 +5,8 @@ import math
 # Adjust font size
 plt.rcParams.update({'font.size': 22})
 
+# -------------------------------------------- Parameters --------------------------------------------
+
 # Parameters
 AR = 9                                          # -
 S = 66.6                                        # m^2
@@ -16,6 +18,8 @@ taper_ratio = 0.2*(2-c4_sweep*(math.pi/180))    # -
 c_r = (2*S)/((1+taper_ratio)*span)              # meter
 c_t = taper_ratio*c_r                           # meter
 c4_sweep /= (180/math.pi)                       # rad
+
+# ------------------------------------------- Calculations -------------------------------------------
 
 # Calculation MAC: chord and location
 # Integrate from root to tip 
@@ -55,8 +59,9 @@ le_sweep = math.atan(slope_le)
 slope_te = (te_c_r - te_c_t) / (span/2)
 te_sweep = math.atan(slope_te)
 
-# Print some results
-print("------------------ Summary ------------------------")
+# ----------------------------------------- Printing results -----------------------------------------
+
+print("-------------------- Summary ----------------------")
 print("Span:                        ", round(span,2), "[m]")
 print("Taper ratio:                 ", round(taper_ratio,3), "[-]")
 print("Root chord:                  ", round(c_r,2), "[m]")
@@ -66,6 +71,8 @@ print("Spanwise position MAC:       ", round(spanwise_pos,2), "[m]")
 print("Leading edge sweep angle:    ", round(le_sweep*(180/math.pi),2), "[deg]")
 print("Trailing edge sweep angle:   ", round(te_sweep*(180/math.pi),2), "[deg]")
 print("---------------------------------------------------")
+
+# --------------------------------------------- Plotting ---------------------------------------------
 
 # Make plot
 plt.figure()
