@@ -4,6 +4,7 @@ import math
 
 # Adjust font size
 plt.rcParams.update({'font.size': 22})
+line_width = 3
 
 # --------------------------------------------- Parameters ---------------------------------------------
 
@@ -12,7 +13,7 @@ AR = 9                                          # [-]
 S = 66.6                                        # [m^2]
 c4_sweep = 26.3                                 # [deg]
 
-# Convert parameters \ calculate if necessary
+# Convert parameters / calculate if necessary
 span = math.sqrt(AR*S)                          # [m]
 taper_ratio = 0.2*(2-c4_sweep*(math.pi/180))    # [-] 
 c_r = (2*S)/((1+taper_ratio)*span)              # [m]
@@ -82,23 +83,23 @@ print("---------------------------------------------------")
 plt.figure()
 
 # Quarter chord line left side
-plt.plot((0,-span/2),(q_c_r,q_c_t), label="Quarter Chord line", linewidth=3)
+plt.plot((0,-span/2),(q_c_r,q_c_t), label="Quarter Chord line", linewidth=line_width)
 
 # Root chord
-plt.plot((0,0),(le_c_r,te_c_r), label="Root chord", linewidth=3)
+plt.plot((0,0),(le_c_r,te_c_r), label="Root chord", linewidth=line_width)
 
 # Tip chords
-plt.plot((-span/2,-span/2),(le_c_t,te_c_t), 'r', label="Tip chord", linewidth=3)
-plt.plot((span/2,span/2),(le_c_t,te_c_t), 'r', linewidth=3)
+plt.plot((-span/2,-span/2),(le_c_t,te_c_t), 'r', label="Tip chord", linewidth=line_width)
+plt.plot((span/2,span/2),(le_c_t,te_c_t), 'r', linewidth=line_width)
 
 # MAC on left side
-mac_plot = plt.plot((-spanwise_pos,-spanwise_pos),(te_mac,le_mac), label="MAC", linewidth=3)
+mac_plot = plt.plot((-spanwise_pos,-spanwise_pos),(te_mac,le_mac), label="MAC", linewidth=line_width)
 
 # Connecting
-plt.plot((-span/2,0),(le_c_t,le_c_r), 'b', linewidth=3)
-plt.plot((0,span/2),(le_c_r,le_c_t), 'b', linewidth=3)
-plt.plot((-span/2,0),(te_c_t,te_c_r), 'b', linewidth=3)
-plt.plot((0,span/2),(te_c_r,te_c_t), 'b', linewidth=3)
+plt.plot((-span/2,0),(le_c_t,le_c_r), 'b', linewidth=line_width)
+plt.plot((0,span/2),(le_c_r,le_c_t), 'b', linewidth=line_width)
+plt.plot((-span/2,0),(te_c_t,te_c_r), 'b', linewidth=line_width)
+plt.plot((0,span/2),(te_c_r,te_c_t), 'b', linewidth=line_width)
 
 # Finalizing
 plt.gca().set_aspect('equal', adjustable='box')
