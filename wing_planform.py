@@ -50,7 +50,9 @@ te_mac = q_c_mac - 0.75 * mac
 slope = (le_c_r - le_c_t) / (span/2)
 le_sweep = math.atan(slope)
 
-print("The leading edge sweep angle equals: ", slope*(180/math.pi))
+# Print some results
+print("The MAC is", round(mac,2), "meter and lies at a spanwise position of", round(spanwise_pos,2), "meter")
+print("The leading edge sweep angle equals: ", round(slope*(180/math.pi),2))
 
 # Make plot
 plt.figure()
