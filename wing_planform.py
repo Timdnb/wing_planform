@@ -11,7 +11,7 @@ line_width = 3
 # Parameters
 AR = 9                                          # [-]
 S = 66.6                                        # [m^2]
-c4_sweep = 26.3                                 # [deg]
+c4_sweep = 25.97                                 # [deg]
 
 # Convert parameters / calculate if necessary
 span = math.sqrt(AR*S)                          # [m]
@@ -54,7 +54,7 @@ le_mac = q_c_mac + 0.25 * mac
 te_mac = q_c_mac - 0.75 * mac
 
 # Calculating XLEMAC
-XLEMAC = mac * math.tan(c4_sweep) + (1/4)*c_r - (1/4)*mac
+XLEMAC = spanwise_pos * math.tan(c4_sweep) + (1/4)*c_r - (1/4)*mac
 
 # Calculate leading and trailing edge sweep angle
 slope_le = (le_c_r - le_c_t) / (span/2)
@@ -62,6 +62,11 @@ le_sweep = math.atan(slope_le)
 
 slope_te = (te_c_r - te_c_t) / (span/2)
 te_sweep = math.atan(slope_te)
+
+# Calculate c/2 sweep angle
+slope_c2 = ((le_c_r-0.5*c_r) - (le_c_t-0.5*c_t)) / (span/2)
+c2_sweep = math.atan(slope_c2)
+
 
 # ------------------------------------------ Printing results ------------------------------------------
 
@@ -74,6 +79,7 @@ print("MAC:                         ", round(mac,2), "[m]")
 print("Spanwise position MAC:       ", round(spanwise_pos,2), "[m]")
 print("XLEMAC:                      ", round(XLEMAC,2), "[m]")
 print("Leading edge sweep angle:    ", round(le_sweep*(180/math.pi),2), "[deg]")
+print("Half chord sweep angle:      ", round(c2_sweep*(180/math.pi),2), "[deg]")
 print("Trailing edge sweep angle:   ", round(te_sweep*(180/math.pi),2), "[deg]")
 print("---------------------------------------------------")
 
