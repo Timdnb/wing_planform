@@ -67,6 +67,13 @@ te_sweep = math.atan(slope_te)
 slope_c2 = ((le_c_r-0.5*c_r) - (le_c_t-0.5*c_t)) / (span/2)
 c2_sweep = math.atan(slope_c2)
 
+# Calculate LE spar sweep angle
+slope_le_sp = ((le_c_r-0.2*c_r) - (le_c_t-0.2*c_t)) / (span/2)
+le_sp_sweep = math.atan(slope_le_sp)
+
+# Calculate TE spar sweep angle
+slope_te_sp = ((le_c_r-0.75*c_r) - (le_c_t-0.75*c_t)) / (span/2)
+te_sp_sweep = math.atan(slope_te_sp)
 
 # ------------------------------------------ Printing results ------------------------------------------
 
@@ -79,7 +86,9 @@ print("MAC:                         ", round(mac,2), "[m]")
 print("Spanwise position MAC:       ", round(spanwise_pos,2), "[m]")
 print("XLEMAC:                      ", round(XLEMAC,2), "[m]")
 print("Leading edge sweep angle:    ", round(le_sweep*(180/math.pi),2), "[deg]")
+print("Front spar sweep angle:      ", round(le_sp_sweep*(180/math.pi),2), "[deg]")
 print("Half chord sweep angle:      ", round(c2_sweep*(180/math.pi),2), "[deg]")
+print("Aft spar sweep angle:        ", round(te_sp_sweep*(180/math.pi),2), "[deg]")
 print("Trailing edge sweep angle:   ", round(te_sweep*(180/math.pi),2), "[deg]")
 print("---------------------------------------------------")
 
