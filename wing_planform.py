@@ -10,8 +10,22 @@ line_width = 3
 
 # Parameters
 AR = 9                                          # [-]
-S = 66.6                                        # [m^2]
-c4_sweep = 25.97                                 # [deg]
+S = 62.88                                       # [m^2]
+c4_sweep = 25.97                                # [deg]
+
+# For aileron
+y1_a = 8.08                                     # [m]
+y2_a = 11.3                                     # [m]
+c_a = 0.2                                       # [c]
+
+# For flaps
+y1_f = 2                                        # [m]
+y2_f = 6.29                                     # [m]
+c_f = 0.25                                      # [c]
+
+# Spars
+f_spar = 0.2                                    # [c]
+a_spar = 0.75                                   # [c]
 
 # Convert parameters / calculate if necessary
 span = math.sqrt(AR*S)                          # [m]
@@ -75,6 +89,20 @@ le_sp_sweep = math.atan(slope_le_sp)
 slope_te_sp = ((le_c_r-0.75*c_r) - (le_c_t-0.75*c_t)) / (span/2)
 te_sp_sweep = math.atan(slope_te_sp)
 
+# TE aileron positions
+slope_ai = ((le_c_r-(1-c_a)*c_r) - (le_c_t-(1-c_a)*c_t)) / (span/2)
+ai1 = -(0.75-c_a)*c_r-y1_a*slope_ai
+ai2 = -0.75*c_r-y1_a*slope_te
+ai3 = -(0.75-c_a)*c_r-y2_a*slope_ai
+ai4 = -0.75*c_r-y2_a*slope_te
+
+# TE flaps positions
+slope_fl = ((le_c_r-(1-c_f)*c_r) - (le_c_t-(1-c_f)*c_t)) / (span/2)
+fl1 = -(0.75-c_f)*c_r-y1_f*slope_fl
+fl2 = -0.75*c_r-y1_f*slope_te
+fl3 = -(0.75-c_f)*c_r-y2_f*slope_fl
+fl4 = -0.75*c_r-y2_f*slope_te
+
 # ------------------------------------------ Printing results ------------------------------------------
 
 print("-------------------- Summary ----------------------")
@@ -99,6 +127,28 @@ plt.figure()
 
 # Quarter chord line left side
 plt.plot((0,-span/2),(q_c_r,q_c_t), label="Quarter Chord line", linewidth=line_width)
+
+# Spars
+plt.plot((0,span/2),(le_c_r-f_spar*c_r,le_c_t-f_spar*c_t), 'm', label="Spars", linewidth=line_width)
+plt.plot((0,-span/2),(le_c_r-f_spar*c_r,le_c_t-f_spar*c_t), 'm', linewidth=line_width)
+plt.plot((0,span/2),(le_c_r-a_spar*c_r,le_c_t-a_spar*c_t), 'm', linewidth=line_width)
+plt.plot((0,-span/2),(le_c_r-a_spar*c_r,le_c_t-a_spar*c_t), 'm', linewidth=line_width)
+
+# Aileron
+plt.plot((y1_a,y2_a),(ai1,ai3),'y', label="Ailerons", linewidth=line_width)
+plt.plot((y1_a,y1_a),(ai1,ai2),'y', linewidth=line_width)
+plt.plot((y2_a,y2_a),(ai3,ai4),'y', linewidth=line_width)
+plt.plot((-y1_a,-y2_a),(ai1,ai3),'y', linewidth=line_width)
+plt.plot((-y1_a,-y1_a),(ai1,ai2),'y', linewidth=line_width)
+plt.plot((-y2_a,-y2_a),(ai3,ai4),'y', linewidth=line_width) 
+
+# Flaps
+plt.plot((y1_f,y2_f),(fl1,fl3),'c', label="Flaps", linewidth=line_width)
+plt.plot((y1_f,y1_f),(fl1,fl2),'c', linewidth=line_width)
+plt.plot((y2_f,y2_f),(fl3,fl4),'c', linewidth=line_width)
+plt.plot((-y1_f,-y2_f),(fl1,fl3),'c', linewidth=line_width)
+plt.plot((-y1_f,-y1_f),(fl1,fl2),'c', linewidth=line_width)
+plt.plot((-y2_f,-y2_f),(fl3,fl4),'c', linewidth=line_width) 
 
 # Root chord
 plt.plot((0,0),(le_c_r,te_c_r), label="Root chord", linewidth=line_width)
