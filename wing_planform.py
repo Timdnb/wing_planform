@@ -10,7 +10,7 @@ line_width = 3
 
 # Parameters
 AR = 9                                          # [-]
-S = 62.88                                       # [m^2]
+S = 68.53                                       # [m^2]
 c4_sweep = 25.97                                # [deg]
 
 # For aileron
